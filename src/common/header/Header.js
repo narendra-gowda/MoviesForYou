@@ -22,7 +22,7 @@ const modalStyle = {
 }
 const TabContainer = function (props) {
   return(
-    <Typography component="div" style={{padding:0}}>
+    <Typography component="div" style={{padding:0, textAlign:'center'}}>
       {props.children}
     </Typography>
   )
@@ -56,25 +56,24 @@ class Header extends Component {
           contentLabel="Login"
           onRequestClose={this.modalCloseHandler}
           style={modalStyle}>
-          <Tabs value={this.state.value} onChange={this.tabChangeHandler}>
-            <Tab label="Login"></Tab>
-            <Tab label="Register"></Tab>
+          <Tabs className="tabs" value={this.state.value} onChange={this.tabChangeHandler}>
+            <Tab label="Login" />
+            <Tab label="Register" />
           </Tabs>
-          <TabContainer>
-            <FormControl required>
+          <TabContainer >
+            <FormControl  required>
               <InputLabel htmlFor="username">Username</InputLabel>
               <Input id="username" type="text" />
-              </FormControl><br/>
+              </FormControl><br/><br/>
               <FormControl required>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input id="password" type="password" />
+              <Input id="password" type="password" /><br/><br/>
+              <Button variant="contained" color="primary">LOGIN</Button>
             </FormControl>
           </TabContainer>
         </Modal>
       </div>
-
     )
-
   }
 }
 
