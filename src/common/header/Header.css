@@ -2,7 +2,15 @@
   background-color: #000f;
   height: 36px;
   padding : 10px 30px;
- }
+  }
 .login-btn{
   float: right;
+}
+.app-logo {
+animation: app-logo-spin infinite 7s linear;
+height: 40px;
+}
+
+@keyframes app-logo-spin {
+from { transform: scaleX(-1); }
 }
