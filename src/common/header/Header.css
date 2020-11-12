@@ -17,3 +17,9 @@ from { transform: scaleX(-1); }
 .tabs{
   margin-bottom: 10%;
 }
+.dispNone{
+  display: none;
+}
+.dispBlock{
+  display: block;
+}

@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import PropTypes from 'prop-types';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const modalStyle = {
   content: {
@@ -36,7 +37,9 @@ class Header extends Component {
     super();
     this.state = {
       modalIsOpen: false,
-      value: 0
+      value: 0,
+      username: '',
+      displayAction: "dispNone"
     };
   }
   modalOpenHandler = () => {
@@ -47,6 +50,13 @@ class Header extends Component {
   }
   tabChangeHandler = (event, value) => {
     this.setState({ value });        //Short for {value : value}
+  }
+  displayHelperTextHandler = () =>{
+    this.state.username === '' ? this.setState({displayAction: "dispBlock"}) : this.setState({displayAction: "dispNone"});
+  }
+  inputChangeHandler = (event) =>{
+    let username = event.target.value;
+    this.setState({username});
   }
   render() {
     return (
@@ -68,12 +78,13 @@ class Header extends Component {
           <TabContainer >
             <FormControl  required>
               <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" type="text" />
+              <Input id="username" type="text" onChange={this.inputChangeHandler}/>
+              <FormHelperText className={this.state.displayAction} style={{color:'red'}}>required</FormHelperText>
               </FormControl><br/><br/>
               <FormControl required>
               <InputLabel htmlFor="password">Password</InputLabel>
               <Input id="password" type="password" /><br/><br/>
-              <Button variant="contained" color="primary">LOGIN</Button>
+              <Button variant="contained" color="primary" onClick={this.displayHelperTextHandler}>LOGIN</Button>
             </FormControl>
           </TabContainer>
           }          
