@@ -7,6 +7,12 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import moment from 'moment';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { Typography } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   root: {
@@ -34,9 +40,27 @@ gridListUpcomingMovies: {
     height: 450,
     transform: 'translateZ(0)'
    },
+   formControl: {
+    margin: theme.spacing(),
+    minWidth: 240,
+    maxWidth: 240
+ },
+ title: {
+    color: theme.palette.primary.light,
+ }
 });
 
 class Home extends Component{
+  
+  constructor(){
+    super();
+    this.state= {
+      movieName: ''
+    };
+  }
+  movieNameHandler = (e) =>{
+    this.setState({movieName: e.target.value});
+  }
   render(){
     const {classes} = this.props;
     return(
@@ -66,7 +90,19 @@ class Home extends Component{
           ))} 
         </GridList>
         </div>
-        <div className="filters"></div>
+        <div className="filters">
+          <Card>
+            <CardContent>
+              <FormControl  className={classes.formControl}>
+              <Typography className={classes.title}>FIND MOVIES BY:</Typography>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="movieName">Movie Name</InputLabel>
+                <Input id="movieName" onChange={this.movieNameHandler}/>
+              </FormControl>
+            </CardContent>
+          </Card>
+        </div>
         </div>
       </div>
     )
