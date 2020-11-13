@@ -22,8 +22,13 @@
 } */
 .flex-container{
   display: flex;
+  justify-content: space-between;
 }
 .released-movies{
   padding: 25px 20px;
   /* width: 70%; */
+}
+.filters{
+  width: 26%;
+  margin: 25px;
 }

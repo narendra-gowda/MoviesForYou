@@ -11,14 +11,13 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import moment from 'moment';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { Checkbox, MenuItem, Typography } from '@material-ui/core';
+import { Button, Checkbox, MenuItem, Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-// import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
-// import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {
@@ -43,16 +42,17 @@ gridListUpcomingMovies: {
   },
   gridList: {
     width: 780,
-    height: 450,
+    height: 490,
     transform: 'translateZ(0)'
    },
    formControl: {
-    margin: theme.spacing(),
+    margin: theme.spacing(1),
     minWidth: 240,
     maxWidth: 240
  },
  title: {
     color: theme.palette.primary.light,
+    textAlign: 'center'
  }
 });
 
@@ -132,7 +132,7 @@ class Home extends Component{
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="artist-multi-select">ARTISTS</InputLabel>
+                <InputLabel htmlFor="artist-multi-select">Artists</InputLabel>
                 <Select
                   multiple
                   input={<Input id="artist-multi-select" />}
@@ -147,6 +147,27 @@ class Home extends Component{
                       </MenuItem>
                     ))}
                   </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <TextField 
+                    id="Release-date-start"
+                    label="Release Date Start"
+                    type="date"
+                    defaultValue=''
+                    InputLabelProps={{shrink : true}}>
+                </TextField>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                    <TextField 
+                    id="Release-date-end"
+                    label="Release Date End"
+                    type="date"
+                    defaultValue=''
+                    InputLabelProps={{shrink : true}}>
+                </TextField>
+              </FormControl><br /><br />
+              <FormControl className={classes.formControl}>
+              <Button variant="contained" color="primary">APPLY</Button>
               </FormControl>
             </CardContent>
           </Card>
