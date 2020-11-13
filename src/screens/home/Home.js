@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
+import ReactDOM from 'react-dom';
 import './Home.css';
-import Header from '../../common/header/Header'
+import Header from '../../common/header/Header';
+import Details from '../details/Details';
 import {withStyles} from '@material-ui/core/styles';
 import moviesData from '../../common/moviesData';
 import genres from '../../common/genres';
@@ -18,6 +20,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
+
 
 const styles = theme => ({
   root: {
@@ -75,6 +78,9 @@ class Home extends Component{
   artistChangeHandler = (e) => {
     this.setState({artists: e.target.value});
   }
+  detailsClickHandler(movieId) {
+    ReactDOM.render(<Details movieId={movieId} />, document.getElementById('root'));
+  }
   render(){
     const {classes} = this.props;
     return(
@@ -97,7 +103,7 @@ class Home extends Component{
         <div className="released-movies">
         <GridList cols={3} spacing={25} className={classes.gridList}>
           {moviesData.map(movie =>(
-            <GridListTile key={movie.id} style={{height:370, cursor: 'pointer'}}>
+            <GridListTile onClick={() => this.detailsClickHandler(movie.id)} key={movie.id} style={{height:370, cursor: 'pointer'}}>
               <img src={movie.poster_url} alt={movie.title} className={classes.imageTile}/>
           <GridListTileBar title={movie.title} subtitle={<span>Release Date: {moment(movie.release_date).format("ddd MMM DD YYYY")}</span>}></GridListTileBar>
             </GridListTile>
