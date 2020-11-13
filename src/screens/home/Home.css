@@ -2,10 +2,10 @@
   width: 4px;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(17, 17, 17);
   border-radius: 4px;
- }
+ } */
 
 ::-webkit-scrollbar-thumb {
   background: rgb(202, 200, 200);
@@ -15,4 +15,15 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: grey; 
+}
+/* .movie-tile{
+  height: 100%;
+  width: 50%;
+} */
+.flex-container{
+  display: flex;
+}
+.released-movies{
+  padding: 25px 20px;
+  /* width: 70%; */
 }
