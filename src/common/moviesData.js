@@ -174,7 +174,7 @@ let moviesData = [
               "last_name": "Rao",
               "role_type": "ACTOR",
               "profile_description": "Rajkummar Rao, also known as Rajkumar Yadav, is an Indian actor. He has established a career in Hindi cinema and is the recipient of several awards, including a National Film Award, three Filmfare Awards, and an Asia Pacific Screen Award. He is cited in the media as one of the most talented actors of his generation.",
-              "profile_url": "https://en.wikipedia.org/wiki/Rajkummar_Rao#/media/File:Rajkummar_Rao_World_Premiere_Newton_Zoopalast_Berlinale_2017_02.jpg",
+              "profile_url": "https://en.wikipedia.org/wiki/Rajkummar_Rao#/media/File:Rajkumar_Rao_Filmfare_Glamour_and_Style_Awards_2019_(cropped).jpg",
               "wiki_url": "https://en.wikipedia.org/wiki/Rajkummar_Rao"
           },
           {

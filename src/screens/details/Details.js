@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { GridListTile, Typography } from "@material-ui/core";
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
@@ -6,15 +6,46 @@ import moviesData from '../../common/moviesData';
 import Home from '../home/Home';
 import './Details.css';
 import YouTube from 'react-youtube';
+import GridList from '@material-ui/core/GridList';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
+import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 
 class Details extends Component {
   constructor() {
     super();
     this.state = {
-      movie: {}
+      movie: {},
+      starIcons: [
+        {
+           id: 1,
+           stateId: "star1",
+           color: "black"
+        },
+        {
+           id: 2,
+           stateId: "star2",
+           color: "black"
+        },
+        {
+           id: 3,
+           stateId: "star3",
+           color: "black"
+        },
+        {
+           id: 4,
+           stateId: "star4",
+           color: "black"
+        },
+        {
+           id: 5,
+           stateId: "star5",
+           color: "black"
+        }
+     ]
     }
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let currentState = this.state;
     currentState.movie = moviesData.filter((movi) => {
       return movi.id === this.props.movieId;
@@ -29,6 +60,17 @@ class Details extends Component {
 //     // access to player in all event handlers via event.target
 //     event.target.pauseVideo();    //Pauses the video after loading
 // }
+starRatingHandler(starId) {
+  let star = this.state.starIcons;
+  for(let i=0; i<star.length; i++){
+    if(star[i].id <= starId){
+    star[i].color = "yellow";
+  }else{
+    star[i].color = "black";
+  } 
+}
+  this.setState({star});
+}
   render() {
     let movie = this.state.movie;
     const opts = {
@@ -52,7 +94,7 @@ class Details extends Component {
           </div>
           <div className="middleDetails">
           <div>
-             <Typography variant="headline" component="h2">
+             <Typography variant="h4">
                {movie.title}
              </Typography>
            </div><br/>
@@ -78,7 +120,7 @@ class Details extends Component {
            </div><br />
            <div>
              <Typography >
-               <span className="bold">Plot: </span><a href={movie.wiki_url} target="_blank">(Wiki Link)</a>{movie.storyline}
+               <span className="bold">Plot: </span><a href={movie.wiki_url} target="_blank" rel="noreferrer">(Wiki Link)</a>{movie.storyline}
              </Typography>
            </div><br/>
            <div className="trailerContainer">
@@ -91,6 +133,26 @@ class Details extends Component {
            </div>
           </div>
           <div className="rightDetails">
+            <Typography><span className="bold">Rate this Movie: </span></Typography>
+            {this.state.starIcons.map(star => (
+              <StarBorderOutlinedIcon 
+                key={star.id} 
+                className={star.color}
+                onClick={() => this.starRatingHandler(star.id)}></StarBorderOutlinedIcon>
+            ))}            
+            <div className="marginBottom16 marginTop16">
+              <Typography><span className="bold">Artists:</span></Typography>
+            </div>
+            <div className="paddingRight">
+              <GridList cols={2} >
+                {movie.artists.map(actor => (
+                  <GridListTile key={actor.id} style={{height:160}} className="gridTile">
+                    <a href={actor.wiki_url} target="_blank" rel="noreferrer"><img width="100%" height="100%" src={actor.profile_url} alt={actor.first_name+" "+actor.last_name} /></a>
+                    <GridListTileBar title={actor.first_name+" "+actor.last_name}></GridListTileBar>
+                  </GridListTile>
+                ))}
+              </GridList>
+            </div>
           </div>
         </div>
       </div>
