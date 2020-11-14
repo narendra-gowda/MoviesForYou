@@ -1,0 +1,11 @@
+.back-btn{
+  font-weight: 500;
+  margin: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+.booking-card{
+  width: 30%;
+  margin-left: 35%;
+  text-align: center;
+}

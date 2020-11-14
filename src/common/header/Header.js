@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './Header.css';
 import { Button } from '@material-ui/core';
 import logo from '../../assets/logo.svg';
@@ -11,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import PropTypes from 'prop-types';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import BookTicket from '../../screens/bookTicket/BookTicket';
 
 const modalStyle = {
   content: {
@@ -105,13 +107,21 @@ class Header extends Component {
   registerPhoneChangeHandler = (e) => {
     this.setState({ phone: e.target.value});
   }
+  bookTicketHandler = () => {
+    ReactDOM.render(<BookTicket />, document.getElementById('root'));
+  }
   render() {
     return (
       <div className="header-container">
         <img className="app-logo" src={logo} alt="App Logo" />
         <div className="login-btn">
-          <Button variant="contained" onClick={this.modalOpenHandler}>Login</Button>
+          <Button variant="contained" onClick={this.modalOpenHandler}>Login</Button>          
         </div>
+        {this.props.showBookTicketButton === true ?
+        <div className="book-ticket-btn">
+          <Button variant="contained" color="primary" onClick={this.bookTicketHandler}>BOOK TICKETS</Button>
+          </div> : ""}
+        
         <Modal ariaHideApp={false}
           isOpen={this.state.modalIsOpen}
           contentLabel="Login"

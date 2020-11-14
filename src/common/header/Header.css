@@ -6,6 +6,10 @@
 .login-btn{
   float: right;
 }
+.book-ticket-btn{
+  float: right;
+  margin-right: 10px;
+}
 .app-logo {
 animation: app-logo-spin infinite 7s linear;
 height: 40px;

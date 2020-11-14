@@ -8,7 +8,6 @@ import './Details.css';
 import YouTube from 'react-youtube';
 import GridList from '@material-ui/core/GridList';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 
 class Details extends Component {
@@ -82,7 +81,7 @@ starRatingHandler(starId) {
     }
     return (
       <div className="details">
-        <Header />
+        <Header showBookTicketButton={true}/>
         <div className="back">
           <Typography onClick={this.returnToHomeHandler}>
           &#60; Back to Home
@@ -135,10 +134,10 @@ starRatingHandler(starId) {
           <div className="rightDetails">
             <Typography><span className="bold">Rate this Movie: </span></Typography>
             {this.state.starIcons.map(star => (
-              <StarBorderOutlinedIcon 
+              <StarOutlinedIcon 
                 key={star.id} 
                 className={star.color}
-                onClick={() => this.starRatingHandler(star.id)}></StarBorderOutlinedIcon>
+                onClick={() => this.starRatingHandler(star.id)}></StarOutlinedIcon>
             ))}            
             <div className="marginBottom16 marginTop16">
               <Typography><span className="bold">Artists:</span></Typography>
