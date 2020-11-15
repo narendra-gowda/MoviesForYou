@@ -4,8 +4,39 @@
   cursor: pointer;
   text-align: center;
 }
-.booking-card{
-  width: 30%;
-  margin-left: 35%;
-  text-align: center;
+.form-control{
+  width: 240px;
+  text-align: left;
+}
+.left{
+  text-align: left;
+}
+/* UpGrad */
+
+.bookShow {
+    text-align: center;
+    margin-top: 16px;
+}
+.cardStyle {
+    width: 280px;
+    padding: 32px 64px 32px 64px;
+    margin: auto;
+    text-align: center;
+}
+
+.marginTop16 {
+    margin-top: 16px;
+}
+
+.dispNone {
+    display: none;
+}
+
+.dispBlock {
+    display: block;
+    color: red;
+}
+
+.red {
+    color: red;
 }
