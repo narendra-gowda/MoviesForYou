@@ -1,0 +1,56 @@
+.confirm-card{
+  width: 320px;
+  padding: 32px 40px 32px 60px;
+  margin: auto;
+  text-align: center;
+  margin-top: 64px;
+}
+.grid-container{
+  display: grid;
+  grid-template-columns: auto auto;
+  
+}
+.grid-item{
+  padding: 10px 0px;
+  text-align: left;
+  font-weight: 490;
+  font-size: 1.1em;
+}
+.grid-item-btm{
+  padding-top: 40px;
+  font-weight: bold;
+  text-align: left;
+}
+.apply-btn{
+  align-self: end;
+  justify-self: left;
+}
+.green{
+  color: rgb(2, 184, 2);
+  font-weight: bold;
+  padding-top: 18px;
+}
+.grid{
+  display: grid;
+  grid-template-columns: 15% 80% 5%;
+}
+.grid-i{
+  padding-top: 13px;
+}
+
+.close{
+  color: white;
+  font-size: 2.5rem;
+  padding-bottom: 8px;
+  cursor: pointer;
+}
+.icon{
+  width: 2rem;
+  height: 2rem;
+  color: rgb(2, 184, 2);
+}
+.back{
+  cursor: pointer;
+  margin: 16px;
+}
+

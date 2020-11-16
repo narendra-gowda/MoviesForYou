@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
+import Confirmation from '../confirmation/Confirmation';
 import Typography from '@material-ui/core/Typography';
 import Home from '../../screens/home/Home';
 import './BookTicket.css';
@@ -55,11 +56,16 @@ class BookTicket extends Component{
     this.setState({tickets : e.target.value});
   }
   bookTicketsHandler = () =>{
-    this.state.location === '' ? this.setState({locationRequired: 'dispBlock'}) : this.setState({locationRequired: 'dispNone'});
-    this.state.language === '' ? this.setState({langRequired: 'dispBlock'}) : this.setState({langRequired: 'dispNone'});
-    this.state.showDate === '' ? this.setState({dateRequired: 'dispBlock'}) : this.setState({dateRequired: 'dispNone'});
-    this.state.showTime === '' ? this.setState({timeRequired: 'dispBlock'}) : this.setState({timeRequired: 'dispNone'});
-    this.state.tickets <= 0 ? this.setState({ticketRequired: 'dispBlock'}) : this.setState({ticketRequired: 'dispNone'});
+    let s = this.state;
+    s.location === '' ? this.setState({locationRequired: 'dispBlock'}) : this.setState({locationRequired: 'dispNone'});
+    s.language === '' ? this.setState({langRequired: 'dispBlock'}) : this.setState({langRequired: 'dispNone'});
+    s.showDate === '' ? this.setState({dateRequired: 'dispBlock'}) : this.setState({dateRequired: 'dispNone'});
+    s.showTime === '' ? this.setState({timeRequired: 'dispBlock'}) : this.setState({timeRequired: 'dispNone'});
+    s.tickets <= 0 ? this.setState({ticketRequired: 'dispBlock'}) : this.setState({ticketRequired: 'dispNone'});
+
+    if(s.location != '' && s.language != '' &&  s.showDate != '' && s.showTime != '' && s.tickets > 0){
+    ReactDOM.render(<Confirmation bookTicketProps={this.state}/>, document.getElementById('root'));
+    }
   }
   render(){
     return(
