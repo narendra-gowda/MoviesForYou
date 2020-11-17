@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
-import Confirmation from '../confirmation/Confirmation';
 import Typography from '@material-ui/core/Typography';
-import Home from '../../screens/home/Home';
 import './BookTicket.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,8 +15,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import {NavLink} from 'react-router-dom'
 
 class BookTicket extends Component{
+
   constructor(){
     super();
     this.state= {
@@ -37,9 +36,9 @@ class BookTicket extends Component{
       ticketRequired: 'dispNone',
     }
   }
-  backToHomeHandler = () =>{
-    ReactDOM.render(<Home />, document.getElementById('root'));
-  }
+  // backToHomeHandler = () =>{  --Manual Routing--
+  //   ReactDOM.render(<Home />, document.getElementById('root'));
+  // }
   locationHandler = (e) => {
     this.setState({location : e.target.value});
   }
@@ -64,17 +63,23 @@ class BookTicket extends Component{
     s.tickets <= 0 ? this.setState({ticketRequired: 'dispBlock'}) : this.setState({ticketRequired: 'dispNone'});
 
     if(s.location != '' && s.language != '' &&  s.showDate != '' && s.showTime != '' && s.tickets > 0){
-    ReactDOM.render(<Confirmation bookTicketProps={this.state}/>, document.getElementById('root'));
+    // ReactDOM.render(<Confirmation bookTicketProps={this.state}/>, document.getElementById('root'));  --Manual Routing--
+     this.props.history.push({
+       pathname : '/confirm/'+ this.props.match.params.id, 
+       bookTicketProps : this.state
+     });
     }
   }
   render(){
     return(
       <div>
-        <Header />
-        <div className="back-btn">
-        <Typography onClick={this.backToHomeHandler}>&#60; Back to Movie Details</Typography>
-        </div>
-        
+        <Header style={{width : 100}}/>
+        <div className="bookTicket">
+          <div className="back-btn">
+            <Typography>
+              <NavLink to={"/movie/"+this.props.match.params.id}>&#60; Back to Movie Details</NavLink>
+            </Typography>        
+          </div>
           <Card className="cardStyle">
             <CardContent>
               <Typography variant="h6" color="primary">BOOK TICKET</Typography><br />
@@ -126,13 +131,14 @@ class BookTicket extends Component{
                   <InputLabel htmlFor="tickets">Tickets: ( {this.state.availableTickets} Tickets available )</InputLabel>
                   <Input id="tickets" value={this.state.tickets !== 0 ? this.state.tickets : "" } onChange={this.ticketChangeHandler} />
                   <FormHelperText className={this.state.ticketRequired} style={{color:'red'}}>required</FormHelperText>
-                </FormControl><br />
+                </FormControl><br /><br/>
                 <Typography className="left">Unit Price: Rs. {this.state.unitPrice}</Typography><br />
                 <Typography className="left">Total Price: Rs. {this.state.unitPrice * this.state.tickets}</Typography><br />
                 <Button  variant="contained" color="primary" onClick={this.bookTicketsHandler}>BOOK</Button>    
             </CardContent>
           </Card>
         </div>
+      </div>
     );
   }
 }

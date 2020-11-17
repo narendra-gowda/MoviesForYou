@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './Confirmation.css';
 import Header from '../../common/header/Header';
 import Card from '@material-ui/core/Card';
@@ -9,9 +8,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Modal from 'react-modal';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Home from '../home/Home';
-import BookTicket from '../bookTicket/BookTicket';
 import coupons from '../../common/coupon';
+import {NavLink} from 'react-router-dom';
 
 
 const modalStyle = {
@@ -29,6 +27,7 @@ const modalStyle = {
 }
 
 class Confirmation extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -40,7 +39,7 @@ class Confirmation extends Component {
   }
   componentDidMount(){
     let currentState = this.state;
-    currentState.discountedPrice = currentState.totalPrice = this.props.bookTicketProps.unitPrice * this.props.bookTicketProps.tickets;
+    currentState.discountedPrice = currentState.totalPrice = this.props.location.bookTicketProps.unitPrice * this.props.location.bookTicketProps.tickets;
     this.setState({state : currentState});
   }
   confirmBookingHandler = () =>{
@@ -48,11 +47,12 @@ class Confirmation extends Component {
   }
   modalCloseHandler = () =>{
     this.setState({ isModalOpen : false});
-    ReactDOM.render(<Home />, document.getElementById('root'));
+    // ReactDOM.render(<Home />, document.getElementById('root')); --Manual Routing--
+    this.props.history.push("/");
   }
-  backToBookShowHandler = () =>{
-     ReactDOM.render(<BookTicket />, document.getElementById('root'));
-  }
+  // backToBookShowHandler = () =>{
+  //    ReactDOM.render(<BookTicket />, document.getElementById('root'));
+  // }
   couponCodeHandler = (e) =>{
     this.setState({coupon : e.target.value});
   }
@@ -74,38 +74,44 @@ class Confirmation extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="summary">
         <Header />
-        <div className="back">
-        <Typography onClick={this.backToBookShowHandler}>&#60; Back to Book Show</Typography>
-        </div>
-        <Card className="confirm-card">
-          <CardContent>
-            <Typography variant="h6" color="primary">SUMMARY</Typography><br/>  
-            <Typography component="div">        
-            <div className="grid-container">            
-              <span className="grid-item">Location:</span>
-              <span className="grid-item">{this.props.bookTicketProps.location}</span>
-              <span className="grid-item">Language:</span>
-              <span className="grid-item">{this.props.bookTicketProps.language}</span>
-              <span className="grid-item">Show Date:</span>
-              <span className="grid-item">{this.props.bookTicketProps.showDate}</span>
-              <span className="grid-item">Show Time:</span>
-              <span className="grid-item">{this.props.bookTicketProps.showTime}</span>
-              <span className="grid-item">Tickets:</span>
-              <span className="grid-item">{this.props.bookTicketProps.tickets}</span>
-              <span className="grid-item">Unit Price:</span>
-              <span className="grid-item">{this.props.bookTicketProps.unitPrice}</span>           
-              <TextField style={{width: '160px'}} id="standard-basic" label="Coupon Code" onChange={this.couponCodeHandler}/>
-              <div className="apply-btn">
-              <Button variant="contained" color="primary" onClick={this.couponApplyHandler}>APPLY</Button>
-              </div>
-              <span className="grid-item-btm">Total Price:</span>
-              <span className="grid-item-btm">{this.state.discountedPrice}</span> 
-            </div></Typography>  <br/>
-            <Button variant="contained" color="primary" onClick={this.confirmBookingHandler}>CONFIRM BOOKING</Button>                      
-          </CardContent>
-        </Card>
+
+        <div className="confirmation">
+          <div className="back">
+            <Typography >
+              <NavLink to={"/bookticket/" + this.props.match.params.id} >&#60; Back to Book Show </NavLink>          
+            </Typography>
+          </div>
+          <Card className="confirm-card">
+            <CardContent>
+              <Typography variant="h6" color="primary">SUMMARY</Typography><br/>  
+              <Typography component="div">        
+                <div className="grid-container">            
+                  <span className="grid-item">Location:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.location}</span>
+                  <span className="grid-item">Language:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.language}</span>
+                  <span className="grid-item">Show Date:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.showDate}</span>
+                  <span className="grid-item">Show Time:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.showTime}</span>
+                  <span className="grid-item">Tickets:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.tickets}</span>
+                  <span className="grid-item">Unit Price:</span>
+                  <span className="grid-item">{this.props.location.bookTicketProps.unitPrice}</span>
+                  <TextField style={{width: '160px'}} id="standard-basic" label="Coupon Code" onChange={this.couponCodeHandler}/>
+                  <div className="apply-btn">
+                  <Button variant="contained" color="primary" onClick={this.couponApplyHandler}>APPLY</Button>
+                  </div>
+                  <span className="grid-item-btm">Total Price:</span>
+                  <span className="grid-item-btm">{this.state.discountedPrice}</span> 
+                </div>
+              </Typography><br/>
+              <Button variant="contained" color="primary" onClick={this.confirmBookingHandler}>CONFIRM BOOKING</Button>                      
+            </CardContent>
+          </Card>
+        </div>  
         <Modal ariaHideApp={false}
               isOpen={this.state.isModalOpen}
               contentLabel="Booking successful"
@@ -120,7 +126,7 @@ class Confirmation extends Component {
                    </div>                   
                    <span className="close" onClick={this.modalCloseHandler}> &times; </span>
                   </div>
-              </Modal>
+        </Modal>
       </div>
     );
   }

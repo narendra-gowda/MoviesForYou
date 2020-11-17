@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './common/common.css';
 import 'fontsource-roboto';
-import Home from './screens/home/Home';
+import Controller from './screens/Controller';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div><Home /></div>
-  </React.StrictMode>,
+  // <React.StrictMode>    //This used to throw Warning: findDOMNode deprecated
+    <div><Controller /></div>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

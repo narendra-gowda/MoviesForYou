@@ -13,15 +13,17 @@
 }
 /* UpGrad */
 
-.bookShow {
-    text-align: center;
-    margin-top: 16px;
+.bookTicket {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 .cardStyle {
-    width: 280px;
     padding: 32px 64px 32px 64px;
     margin: auto;
     text-align: center;
+
 }
 
 .marginTop16 {
@@ -37,6 +39,3 @@
     color: red;
 }
 
-.red {
-    color: red;
-}

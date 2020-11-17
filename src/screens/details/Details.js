@@ -1,20 +1,20 @@
-import { GridListTile, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import moviesData from '../../common/moviesData';
-import Home from '../home/Home';
 import './Details.css';
 import YouTube from 'react-youtube';
 import GridList from '@material-ui/core/GridList';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import { GridListTile, Typography } from "@material-ui/core";
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
+import {NavLink} from 'react-router-dom';
 
 class Details extends Component {
+
   constructor() {
     super();
     this.state = {
-      movie: {},
+      movie:{},
       starIcons: [
         {
            id: 1,
@@ -44,18 +44,18 @@ class Details extends Component {
      ]
     }
   }
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     let currentState = this.state;
     currentState.movie = moviesData.filter((movi) => {
-      return movi.id === this.props.movieId;
+      return movi.id === this.props.match.params.id;
     })[0];
     this.setState({ currentState });
     console.log(this.state);
   }
-  returnToHomeHandler = () =>{
-    ReactDOM.render(<Home />,document.getElementById('root'));
-  }
-//   _onReady(event) {
+  // returnToHomeHandler = () =>{ --Manual Routing--
+  //   ReactDOM.render(<Home />,document.getElementById('root'));
+  // }
+//   _onReady(event) {   --YouTube package Property--
 //     // access to player in all event handlers via event.target
 //     event.target.pauseVideo();    //Pauses the video after loading
 // }
@@ -73,29 +73,27 @@ starRatingHandler(starId) {
   render() {
     let movie = this.state.movie;
     const opts = {
-      // height: 300,
-      // width: 500,
+      height: 300,
+      width: 700,
       playerVars: {
         autoplay: 1
       }
     }
     return (
       <div className="details">
-        <Header showBookTicketButton={true}/>
+        <Header id={this.props.match.params.id} showBookTicketButton={true}/>
         <div className="back">
-          <Typography onClick={this.returnToHomeHandler}>
-          &#60; Back to Home
+          <Typography >
+            <NavLink to="/"> &#60; Back to Home </NavLink>
           </Typography>
         </div>
         <div className="flex-containerDetails">
           <div className="leftDetails">
-          <img src={movie.poster_url} alt={movie.title} />
+            <img src={movie.poster_url} alt={movie.title} />
           </div>
           <div className="middleDetails">
-          <div>
-             <Typography variant="h4">
-               {movie.title}
-             </Typography>
+            <div>
+             <Typography variant="h4">{movie.title}</Typography>
            </div><br/>
            <div>
              <Typography >
@@ -103,19 +101,13 @@ starRatingHandler(starId) {
              </Typography>
            </div>
            <div>
-             <Typography >
-               <span className="bold">Duration: </span>{movie.duration}
-             </Typography>
+             <Typography><span className="bold">Duration: </span>{movie.duration}</Typography>
            </div>
            <div>
-             <Typography >
-               <span className="bold">Release Date: </span>{new Date(movie.release_date).toDateString()}
-             </Typography>
+             <Typography ><span className="bold">Release Date: </span>{new Date(movie.release_date).toDateString()}</Typography>
            </div>
            <div>
-             <Typography >
-               <span className="bold">Rating: </span>{movie.critics_rating}
-             </Typography>
+             <Typography ><span className="bold">Rating: </span>{movie.critics_rating}</Typography>
            </div><br />
            <div>
              <Typography >
@@ -131,6 +123,7 @@ starRatingHandler(starId) {
              </YouTube>
            </div>
           </div>
+
           <div className="rightDetails">
             <Typography><span className="bold">Rate this Movie: </span></Typography>
             {this.state.starIcons.map(star => (
@@ -143,9 +136,9 @@ starRatingHandler(starId) {
               <Typography><span className="bold">Artists:</span></Typography>
             </div>
             <div className="paddingRight">
-              <GridList cols={2} >
-                {movie.artists.map(actor => (
-                  <GridListTile key={actor.id} style={{height:160}} className="gridTile">
+              <GridList cols={2} cellHeight = {'auto'}>
+                {movie.artists != null && movie.artists.map(actor => (
+                  <GridListTile key={actor.id} style={{maxHeight: 160, maxWidth: 160}} className="gridTile">
                     <a href={actor.wiki_url} target="_blank" rel="noreferrer"><img width="100%" height="100%" src={actor.profile_url} alt={actor.first_name+" "+actor.last_name} /></a>
                     <GridListTileBar title={actor.first_name+" "+actor.last_name}></GridListTileBar>
                   </GridListTile>

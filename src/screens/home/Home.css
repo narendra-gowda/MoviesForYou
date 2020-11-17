@@ -22,13 +22,32 @@
 } */
 .flex-container{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+.flex-container > div{
+  margin: 16px;
 }
 .released-movies{
-  padding: 25px 20px;
-  /* width: 70%; */
+ 
+  width: 76%;
 }
 .filters{
   width: 26%;
   margin: 25px;
+}
+
+@media (max-width: 992px) {
+  .flex-container {
+      flex-direction: column;
+  }
+  .released-movies {
+      width: auto;
+  }
+  .filters {
+      width: 90%;
+  }
+  .released-movie-grid-item {
+      margin: 8px;
+  }
+  
 }

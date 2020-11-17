@@ -47,7 +47,7 @@
 
 .gridTile {
   cursor: pointer;
-}
+  }
 
 .back {
   margin-left: 24px;
@@ -61,8 +61,8 @@
   display: flex;
 }
 
-.flex-containerDetails>div {
-  margin: 0px 16px;
+.flex-containerDetails > div {
+  margin: 0px 10px;
 }
 
 iframe {
@@ -87,5 +87,7 @@ iframe {
   .paddingRight {
     margin-right: 32px;
     width: 40%;
+    margin-bottom: 5%;
+    display: flex;
   }
 }

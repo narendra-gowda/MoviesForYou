@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './Header.css';
 import { Button } from '@material-ui/core';
 import logo from '../../assets/logo.svg';
@@ -12,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import PropTypes from 'prop-types';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import BookTicket from '../../screens/bookTicket/BookTicket';
+import {NavLink} from 'react-router-dom';
 
 const modalStyle = {
   content: {
@@ -23,7 +22,7 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     marginRight: '-50%'
   }
-}
+};
 const TabContainer = function (props) {
   return (
     <Typography component="div" style={{ padding: 0, textAlign: 'center' }}>
@@ -35,6 +34,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 }
 class Header extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -107,9 +107,9 @@ class Header extends Component {
   registerPhoneChangeHandler = (e) => {
     this.setState({ phone: e.target.value});
   }
-  bookTicketHandler = () => {
-    ReactDOM.render(<BookTicket />, document.getElementById('root'));
-  }
+  // bookTicketHandler = () => {    --Manual Routing--
+  //   ReactDOM.render(<BookTicket />, document.getElementById('root'));
+  // } 
   render() {
     return (
       <div className="header-container">
@@ -117,10 +117,12 @@ class Header extends Component {
         <div className="login-btn">
           <Button variant="contained" onClick={this.modalOpenHandler}>Login</Button>          
         </div>
-        {this.props.showBookTicketButton === true ?
-        <div className="book-ticket-btn">
-          <Button variant="contained" color="primary" onClick={this.bookTicketHandler}>BOOK TICKETS</Button>
-          </div> : ""}
+        {
+          this.props.showBookTicketButton === true ?
+          <div className="book-ticket-btn">
+            <NavLink to={"/bookticket/"+ this.props.id} ><Button variant="contained" color="primary">BOOK TICKETS</Button> </NavLink>
+          </div> : ""
+        }
         
         <Modal ariaHideApp={false}
           isOpen={this.state.modalIsOpen}
