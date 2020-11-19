@@ -82,7 +82,7 @@ class Header extends Component {
     this.state.username === '' ? this.setState({ usernameHelperDisplay: "dispBlock" }) : this.setState({ usernameHelperDisplay: "dispNone" });
     this.state.password === '' ? this.setState({ passwordHelperDisplay: "dispBlock" }) : this.setState({ passwordHelperDisplay: "dispNone" });
 
-    //API CALL TO LOGIN USING ACCESS TOKEN
+    {/* //API CALL TO LOGIN USING ACCESS TOKEN
     let loginData = null;
     let that = this;
     let param = window.btoa(this.state.username +":"+ this.state.password);
@@ -99,8 +99,8 @@ class Header extends Component {
     xhrLogin.setRequestHeader("Authorization", "Basic"+ param);
     xhrLogin.setRequestHeader("Content-Type", "application/json")
     xhrLogin.setRequestHeader("Cache-control", "no-cache");
-    xhrLogin.send(loginData);
-  }
+    xhrLogin.send(loginData);  */}
+  } 
 
   registerDisplayHelperTextHandler = () => {
     this.state.firstName === '' ? this.setState({ firstNameHelperDisplay: "dispBlock" }) : this.setState({ firstNameHelperDisplay: "dispNone" });
@@ -118,7 +118,7 @@ class Header extends Component {
     }
 
 
-    //API CALL TO REGISTER USER
+    {/* //API CALL TO REGISTER USER
     let that = this;
     let signupData = JSON.stringify(
       {
@@ -137,8 +137,8 @@ class Header extends Component {
     xhrSignup.open("POST", this.props.baseUrl + "signup");
     xhrSignup.setRequestHeader("Content-Type", "application/json");
     xhrSignup.setRequestHeader("Cache-Control", "no-cache");
-    xhrSignup.send(signupData);
-  }
+    xhrSignup.send(signupData);  */}
+  } 
   logoutButtonHandler = (e) => {
     sessionStorage.removeItem('user-details');
     sessionStorage.removeItem('access-token');

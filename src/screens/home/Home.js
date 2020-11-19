@@ -65,7 +65,9 @@ class Home extends Component {
       movieName: '',
       upcomingMovies: [],
       releasedMovies: [],
+      genreList: [],
       genres: [],
+      artistList: [],
       artists: []
     };
   }
@@ -81,11 +83,35 @@ class Home extends Component {
   detailsClickHandler(movieId) {
     this.props.history.push('/movie/' + movieId);
   }
-  // API call to fetch data
+   // API call to fetch data
   UNSAFE_componentWillMount(){
-     //TO FETCH UPCOMING MOVIES DETAILS
-    let data = null;
+    //TO FETCH GENRES
+    let genreData = null;
     let that = this;
+    let xhrGenre = new XMLHttpRequest();
+    xhrGenre.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        that.setState({genreList : JSON.parse(this.responseText).genres});
+      }
+    })
+    xhrGenre.open("GET", this.props.baseUrl+"genres");
+    xhrGenre.setRequestHeader('Cache-Control', 'no-cache');
+    xhrGenre.send(genreData);
+
+    //TO FETCH ARTISTS
+    let artistData = null;
+    let xhrArtists = new XMLHttpRequest();
+    xhrArtists.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        that.setState({artistList: JSON.parse(this.responseText).artist});
+      }
+    });
+    xhrArtists.open("GET", this.props.baseUrl+"artists");
+    xhrArtists.setRequestHeader('Cache-Contol', 'no-cache');
+    xhrArtists.send(artistData);
+  }
+    /* //TO FETCH UPCOMING MOVIES DETAILS
+    let data = null;   
     let xhr = new XMLHttpRequest();
     xhr.addEventListener("readystatechange", function(){
       if(this.readyState === 4){
@@ -107,8 +133,8 @@ class Home extends Component {
     })
     xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
     xhrReleased.setRequestHeader("cache-control", "no-cache");
-    xhrReleased.send(dataReleased);
-  }
+    xhrReleased.send(dataReleased); 
+  } */
   render() {
     const { classes } = this.props;
     return (
@@ -165,6 +191,7 @@ class Home extends Component {
                     value={this.state.genres}
                     onChange={this.genreChangeHandler}>
                     <MenuItem value="0">None</MenuItem>
+                    {/* {this.state.genreList.map(genre =>())} --TO POPULATE FROM SERVER */}
                     {genres.map(genre => (
                       <MenuItem key={genre.id} value={genre.name}>
                         <Checkbox checked={this.state.genres.indexOf(genre.name) > -1} />
@@ -183,6 +210,7 @@ class Home extends Component {
                     renderValue={selected => selected.join(',')}
                     onChange={this.artistChangeHandler}>
                     <MenuItem value="0">None</MenuItem>
+                     {/* {this.state.artistList.map(artist =>())} --TO POPULATE FROM SERVER */}
                     {artists.map(artist => (
                       <MenuItem key={artist.id} value={artist.first_name + " ".concat(artist.last_name)}>
                         <Checkbox checked={this.state.artists.indexOf(artist.first_name + " ".concat(artist.last_name)) > -1} />
