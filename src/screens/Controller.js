@@ -7,14 +7,19 @@ import Confirmation from '../screens/confirmation/Confirmation';
 import moviesData from '../common/moviesData';
 
 class Controller extends Component {
+
+  constructor(){
+    super();
+    this.baseUrl = "http://34.238.240.39:8085/api/v1"
+  }
   render() {
     return(
       <Router>
         <div className="main-container">
-          <Route exact path = '/' render={(props) => <Home {...props} moviesData = {moviesData}/>} />
-          <Route path = '/movie/:id' render={(props) => <Details {...props} />} />
-          <Route path = '/bookticket/:id' render={(props) => <BookTicket {...props} />} />
-          <Route path = '/confirm/:id' render={(props) => <Confirmation {...props} />} />
+          <Route exact path = '/' render={(props) => <Home {...props} moviesData = {moviesData} baseUrl = {this.baseUrl}/>} />
+          <Route path = '/movie/:id' render={(props) => <Details {...props} baseUrl = {this.baseUrl}/>} />
+          <Route path = '/bookticket/:id' render={(props) => <BookTicket {...props} baseUrl = {this.baseUrl}/>} />
+          <Route path = '/confirm/:id' render={(props) => <Confirmation {...props} baseUrl = {this.baseUrl}/>} />
         </div>
       </Router>
     )

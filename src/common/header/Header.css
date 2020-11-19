@@ -27,3 +27,6 @@ from { transform: scaleX(-1); }
 .dispBlock{
   display: block;
 }
+.register-success{
+  font-size: 0.3cm;
+}

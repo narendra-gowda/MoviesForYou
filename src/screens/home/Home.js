@@ -30,7 +30,7 @@ const styles = theme => ({
     background: '#ff9999',
     padding: '8px',
     fontSize: '1rem',
-    fontWeight: 600
+    fontWeight: 600,
   },
   gridListUpcomingMovies: {
     flexWrap: 'nowrap',
@@ -63,6 +63,8 @@ class Home extends Component {
     super();
     this.state = {
       movieName: '',
+      upcomingMovies: [],
+      releasedMovies: [],
       genres: [],
       artists: []
     };
@@ -79,20 +81,49 @@ class Home extends Component {
   detailsClickHandler(movieId) {
     this.props.history.push('/movie/' + movieId);
   }
+  // API call to fetch data
+  UNSAFE_componentWillMount(){
+     //TO FETCH UPCOMING MOVIES DETAILS
+    let data = null;
+    let that = this;
+    let xhr = new XMLHttpRequest();
+    xhr.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        console.log(this.responseText);
+        that.setState({upcomingMovies : JSON.parse(this.responseText).movies}); //movies is the name of the array we want from object passed from API.
+        }
+    })
+    xhr.open("GET", this.props.baseUrl + "movies?status=PUBLISHED");
+    xhr.setRequestHeader("cache-control" , "no-cache");
+    xhr.send(data);
+
+    //TO FETCH RELEASED MOVIES DETAILS
+    let dataReleased = null;
+    let xhrReleased = new XMLHttpRequest();
+    xhrReleased.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        that.setState({releasedMovies : JSON.parse(this.responseText).movies});
+      }
+    })
+    xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
+    xhrReleased.setRequestHeader("cache-control", "no-cache");
+    xhrReleased.send(dataReleased);
+  }
   render() {
     const { classes } = this.props;
     return (
       <div className="main-container">
        
-        <Header />
+        <Header baseUrl={this.props.baseUrl}/>
         
         <div className={classes.upcomingMoviesHeading}>
           <span>Upcoming Movies</span>
         </div>
-        <GridList cols={5}  cellHeight={'auto'} className={classes.gridListUpcomingMovies}>
+        <GridList cols={5} cellHeight={'auto'} style={{maxHeight: '250px'}} className={classes.gridListUpcomingMovies}>
           {
+            //this.upcomingMovies.map(movie =>())     --When fetching data from API--
             moviesData.map(movie => (
-              <GridListTile key={movie.id} cellHeight={'auto'}>
+              <GridListTile key={"movie" + movie.id}>
                 <img src={movie.poster_url} alt={movie.title} className={classes.imageTile} />
                 <GridListTileBar title={movie.title}></GridListTileBar>
               </GridListTile>
@@ -102,8 +133,10 @@ class Home extends Component {
         
         <div className="flex-container">
           <div className="released-movies">
-            <GridList cols={3} spacing={20} className={classes.gridList}>
-              {moviesData.map(movie => (
+            <GridList cols={3} spacing={20} className={classes.gridList}>              
+              {
+                //this.releasedMovies.map(movie => ()) --When fetching data from API--
+                moviesData.map(movie => (
                 <GridListTile onClick={() => this.detailsClickHandler(movie.id)} key={"grid"+ movie.id} style={{ height:'100%', cursor: 'pointer'}}>
                   <img src={movie.poster_url} alt={movie.title} className={classes.imageTile} />
                   <GridListTileBar title={movie.title} subtitle={<span>Release Date: {moment(movie.release_date).format("ddd MMM DD YYYY")}</span>}></GridListTileBar>

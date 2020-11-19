@@ -53,7 +53,10 @@ class Header extends Component {
       registerPass: '',
       registerPassHelperDisplay: "dispNone",
       phone: '',
-      phoneHelperDisplay: "dispNone"
+      phoneHelperDisplay: "dispNone",
+      registrationSuccess : true,
+      success: "dispNone",
+      loggedIn: sessionStorage.getItem('access-token') ? true : false
     };
   }
   modalOpenHandler = () => {
@@ -67,7 +70,8 @@ class Header extends Component {
                     lastNameHelperDisplay: "dispNone",
                     emailHelperDisplay: "dispNone",
                     registerPassHelperDisplay: "dispNone",
-                    phoneHelperDisplay: "dispNone"
+                    phoneHelperDisplay: "dispNone",
+                    success: "dispNone"
                    });
     this.setState({ value: 0 });
   }
@@ -77,13 +81,68 @@ class Header extends Component {
   loginDisplayHelperTextHandler = () => {
     this.state.username === '' ? this.setState({ usernameHelperDisplay: "dispBlock" }) : this.setState({ usernameHelperDisplay: "dispNone" });
     this.state.password === '' ? this.setState({ passwordHelperDisplay: "dispBlock" }) : this.setState({ passwordHelperDisplay: "dispNone" });
+
+    //API CALL TO LOGIN USING ACCESS TOKEN
+    let loginData = null;
+    let that = this;
+    let param = window.btoa(this.state.username +":"+ this.state.password);
+    let xhrLogin = new XMLHttpRequest();
+    xhrLogin.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        sessionStorage.setItem('user-details', JSON.parse(this.responseText).id);
+        sessionStorage.setItem('access-token', xhrLogin.getResponseHeader('access-token'));
+        that.setState({loggedIn: true});
+        this.modalCloseHandler();
+      }      
+    });
+    xhrLogin.open("POST", this.props.baseUrl + "auth/login");
+    xhrLogin.setRequestHeader("Authorization", "Basic"+ param);
+    xhrLogin.setRequestHeader("Content-Type", "application/json")
+    xhrLogin.setRequestHeader("Cache-control", "no-cache");
+    xhrLogin.send(loginData);
   }
+
   registerDisplayHelperTextHandler = () => {
     this.state.firstName === '' ? this.setState({ firstNameHelperDisplay: "dispBlock" }) : this.setState({ firstNameHelperDisplay: "dispNone" });
     this.state.lastName === '' ? this.setState({ lastNameHelperDisplay: "dispBlock" }) : this.setState({ lastNameHelperDisplay: "dispNone" });
     this.state.email === '' ? this.setState({ emailHelperDisplay: "dispBlock" }) : this.setState({ emailHelperDisplay: "dispNone" });
     this.state.registerPass === '' ? this.setState({ registerPassHelperDisplay: "dispBlock" }) : this.setState({ registerPassHelperDisplay: "dispNone" });
     this.state.phone === '' ? this.setState({ phoneHelperDisplay: "dispBlock" }) : this.setState({ phoneHelperDisplay: "dispNone" });
+    
+    //TO DISPLAY REGISTRATION SUCCESSFUL MSG
+    let s = this.state;
+    if(s.firstName !== '' && s.lastname !== '' && s.email !== '' && s.registerPass !== '' && s.phone !== ''){
+      this.setState({success: "dispBlock"});
+    }else{
+      this.setState({success: "dispNone"});
+    }
+
+
+    //API CALL TO REGISTER USER
+    let that = this;
+    let signupData = JSON.stringify(
+      {
+        "email-address": this.state.email,
+        "first_name": this.state.firstName,
+        "last_name": this.state.lastName,
+        "mobile_number": this.state.phone,
+        "password": this.state.password
+    });
+    let xhrSignup = new XMLHttpRequest();
+    xhrSignup.addEventListener("readystatechange" , function() {
+      if(this.readyState === 4){
+        that.setState({registrationSuccess : true});
+      }
+    })
+    xhrSignup.open("POST", this.props.baseUrl + "signup");
+    xhrSignup.setRequestHeader("Content-Type", "application/json");
+    xhrSignup.setRequestHeader("Cache-Control", "no-cache");
+    xhrSignup.send(signupData);
+  }
+  logoutButtonHandler = (e) => {
+    sessionStorage.removeItem('user-details');
+    sessionStorage.removeItem('access-token');
+    this.setState({loggedIn : false});
   }
   loginUsernameChangeHandler = (event) => {
     let username = event.target.value;
@@ -112,10 +171,14 @@ class Header extends Component {
   // } 
   render() {
     return (
+      
       <div className="header-container">
         <img className="app-logo" src={logo} alt="App Logo" />
         <div className="login-btn">
-          <Button variant="contained" onClick={this.modalOpenHandler}>Login</Button>          
+        {this.state.loggedIn === false ?
+          <Button variant="contained" onClick={this.modalOpenHandler}>Login</Button> :
+          <Button variant="contained" onClick={this.logoutButtonHandler}>Logout</Button> 
+        }  
         </div>
         {
           this.props.showBookTicketButton === true ?
@@ -144,7 +207,14 @@ class Header extends Component {
                 <InputLabel htmlFor="password" >Password</InputLabel>
                 <Input id="password" type="password" onChange={this.loginPasswordChangeHandler} />
                 <FormHelperText className={this.state.passwordHelperDisplay} style={{ color: 'red' }}>required</FormHelperText>    
-              </FormControl><br /><br />
+              </FormControl><br/><br/>
+              {this.state.loggedIn === true &&
+                                <FormControl>
+                                    <span className="successText">
+                                        Login Successful!
+                                    </span>
+                                </FormControl>
+                            }<br /><br />
               <Button variant="contained" color="primary" onClick={this.loginDisplayHelperTextHandler}>LOGIN</Button>
             </TabContainer>
           }
@@ -174,7 +244,11 @@ class Header extends Component {
                 <InputLabel htmlFor="phone">Contact No</InputLabel>
                 <Input id="phone" type="text" onChange={this.registerPhoneChangeHandler}/>
                 <FormHelperText className={this.state.phoneHelperDisplay} style={{color:'red'}}>required</FormHelperText>              
-              </FormControl><br/><br/>  
+              </FormControl><br/><br/>
+              { this.state.registrationSuccess === true &&
+                <FormControl>
+                  <span className={this.state.success} style={{fontSize: '0.4cm' ,color: 'green'}}>Registration successful! Please Login</span>
+                </FormControl>} <br/>                               
               <Button variant="contained" color="primary" onClick={this.registerDisplayHelperTextHandler}>REGISTER</Button>            
             </TabContainer>
           }
