@@ -68,7 +68,9 @@ class Home extends Component {
       genreList: [],
       genres: [],
       artistList: [],
-      artists: []
+      artists: [],
+      releaseDateStart: '',
+      releaseDateEnd: ''
     };
   }
   movieNameHandler = (e) => {
@@ -83,33 +85,40 @@ class Home extends Component {
   detailsClickHandler(movieId) {
     this.props.history.push('/movie/' + movieId);
   }
-   // API call to fetch data
-  UNSAFE_componentWillMount(){
-    //TO FETCH GENRES
-    let genreData = null;
-    let that = this;
-    let xhrGenre = new XMLHttpRequest();
-    xhrGenre.addEventListener("readystatechange", function(){
-      if(this.readyState === 4){
-        that.setState({genreList : JSON.parse(this.responseText).genres});
-      }
-    })
-    xhrGenre.open("GET", this.props.baseUrl+"genres");
-    xhrGenre.setRequestHeader('Cache-Control', 'no-cache');
-    xhrGenre.send(genreData);
-
-    //TO FETCH ARTISTS
-    let artistData = null;
-    let xhrArtists = new XMLHttpRequest();
-    xhrArtists.addEventListener("readystatechange", function(){
-      if(this.readyState === 4){
-        that.setState({artistList: JSON.parse(this.responseText).artist});
-      }
-    });
-    xhrArtists.open("GET", this.props.baseUrl+"artists");
-    xhrArtists.setRequestHeader('Cache-Contol', 'no-cache');
-    xhrArtists.send(artistData);
+  releaseDateStartHandler = (e) =>{
+    this.setState({releaseDateStart : e.target.value});
   }
+  releaseDateEndHandler = (e) => {
+    this.setState({releaseDateEnd : e.target.value});
+  }
+   // -- API call to fetch data --
+
+  // UNSAFE_componentWillMount(){
+    //TO FETCH GENRES
+    // let genreData = null;
+    // let that = this;
+    // let xhrGenre = new XMLHttpRequest();
+    // xhrGenre.addEventListener("readystatechange", function(){
+    //   if(this.readyState === 4){
+    //     that.setState({genreList : JSON.parse(this.responseText).genres});
+    //   }
+    // })
+    // xhrGenre.open("GET", this.props.baseUrl+"genres");
+    // xhrGenre.setRequestHeader('Cache-Control', 'no-cache');
+    // xhrGenre.send(genreData);
+
+    // //TO FETCH ARTISTS
+    // let artistData = null;
+    // let xhrArtists = new XMLHttpRequest();
+    // xhrArtists.addEventListener("readystatechange", function(){
+    //   if(this.readyState === 4){
+    //     that.setState({artistList: JSON.parse(this.responseText).artist});
+    //   }
+    // });
+    // xhrArtists.open("GET", this.props.baseUrl+"artists");
+    // xhrArtists.setRequestHeader('Cache-Contol', 'no-cache');
+    // xhrArtists.send(artistData);
+  
     /* //TO FETCH UPCOMING MOVIES DETAILS
     let data = null;   
     let xhr = new XMLHttpRequest();
@@ -134,6 +143,39 @@ class Home extends Component {
     xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
     xhrReleased.setRequestHeader("cache-control", "no-cache");
     xhrReleased.send(dataReleased); 
+  } */
+
+  // TO FETCH FILTERED MOVIES
+ /* applyFilterHandler =() => {    
+    let queryString = "status?=RELEASED";
+    if(this.state.movieName !== ''){
+      queryString += "&title=" + this.state.movieName;
+    }
+    if(this.state.genres.length > 0){
+      queryString += "&genres=" + this.state.genres.toString();
+    }
+    if(this.state.artists.length > 0){
+      queryString += "&artists=" + this.state.artists.toString();
+    }
+    if(this.state.releaseDateStart !== ''){
+      queryString += "&start_date="+this.state.releaseDateStart;
+    }
+    if(this.state.releaseDateEnd !== ''){
+      queryString += "&end_date="+this.state.releaseDateEnd;
+    }
+    console.log(queryString);
+
+    let that = this;
+    let filterData = null;
+    let xhrFilter = new XMLHttpRequest();
+    xhrFilter.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        that.setState({releasedMovies : JSON.parse(this.responseText).movies});
+      }
+    });
+    xhrFilter.open("GET", this.props.baseUrl + encodeURI(queryString));
+    xhrFilter.setRequestHeader("Cache-Control", "no-cache");
+    xhrFilter.send(filterData);
   } */
   render() {
     const { classes } = this.props;
@@ -226,7 +268,8 @@ class Home extends Component {
                     label="Release Date Start"
                     type="date"
                     defaultValue=''
-                    InputLabelProps={{ shrink: true }}>
+                    InputLabelProps={{ shrink: true }}
+                    onChange={this.releaseDateStartHandler}>
                   </TextField>
                 </FormControl>
 
@@ -236,12 +279,13 @@ class Home extends Component {
                     label="Release Date End"
                     type="date"
                     defaultValue=''
-                    InputLabelProps={{ shrink: true }}>
+                    InputLabelProps={{ shrink: true }}
+                    onChange={this.releaseDateEndHandler}>
                   </TextField>
                 </FormControl><br /><br />
 
                 <FormControl className={classes.formControl}>
-                  <Button variant="contained" color="primary">APPLY</Button>
+                  <Button variant="contained" color="primary" onClick={this.applyFilterHandler}>APPLY</Button>
                 </FormControl>
               </CardContent>
             </Card>
