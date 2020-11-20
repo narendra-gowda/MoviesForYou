@@ -14,7 +14,11 @@ class Details extends Component {
   constructor() {
     super();
     this.state = {
-      movie:{},
+      movie:{
+        genres: [],
+        artists: [],
+        trailer_url: ''
+      },
       starIcons: [
         {
            id: 1,
@@ -51,6 +55,19 @@ class Details extends Component {
     })[0];
     this.setState({ currentState });
     console.log(this.state);
+
+    //-- API CALL TO FETCH DETAILS OF MOVIE VIA IT'S ID -- 
+    /* let that = this;
+    let detailsData = null;
+    let xhrDetails = new XMLHttpRequest();
+    xhrDetails.addEventListener("readystatechange", function(){
+      if(this.readyState === 4){
+        that.setState({movie: JSON.parse(this.responseText)});
+      }
+    });
+    xhrDetails.open("GET", this.props.baseUrl + "movie/"+ this.props.match.params.id);
+    xhrDetails.setRequestHeader("Cache-Control", "no-cache");
+    xhrDetails.send(detailsData); */
   }
   // returnToHomeHandler = () =>{ --Manual Routing--
   //   ReactDOM.render(<Home />,document.getElementById('root'));

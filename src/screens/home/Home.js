@@ -83,7 +83,7 @@ class Home extends Component {
     this.setState({ artists: e.target.value });
   }
   detailsClickHandler(movieId) {
-    this.props.history.push('/movie/' + movieId);
+    this.props.history.push('/movie/' + movieId);   //-- Routing by sending movie Id --
   }
   releaseDateStartHandler = (e) =>{
     this.setState({releaseDateStart : e.target.value});
