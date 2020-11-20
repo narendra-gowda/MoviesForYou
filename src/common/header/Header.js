@@ -56,7 +56,7 @@ class Header extends Component {
       phoneHelperDisplay: "dispNone",
       registrationSuccess : true,
       success: "dispNone",
-      loggedIn: sessionStorage.getItem('access-token') ? true : false
+      loggedIn: sessionStorage.getItem('access-token') ? true : false 
     };
   }
   modalOpenHandler = () => {
@@ -166,7 +166,7 @@ class Header extends Component {
   registerPhoneChangeHandler = (e) => {
     this.setState({ phone: e.target.value});
   }
-  // bookTicketHandler = () => {    --Manual Routing--
+  // bookTicketHandler = () => {    // --Manual Routing--
   //   ReactDOM.render(<BookTicket />, document.getElementById('root'));
   // } 
   render() {
@@ -181,9 +181,15 @@ class Header extends Component {
         }  
         </div>
         {
-          this.props.showBookTicketButton === true ?
+          this.props.showBookTicketButton === true && this.state.loggedIn ?
           <div className="book-ticket-btn">
-            <NavLink to={"/bookticket/"+ this.props.id} ><Button variant="contained" color="primary">BOOK TICKETS</Button> </NavLink>
+            <NavLink to={"/bookticket/"+ this.props.id}><Button variant="contained" color="primary">BOOK TICKETS</Button> </NavLink>            
+          </div> : ""
+        }
+        {
+          this.props.showBookTicketButton === true && !this.state.loggedIn ?
+          <div className="book-ticket-btn">
+            <Button variant="contained" color="primary" onClick={this.modalOpenHandler}>BOOK TICKETS</Button>            
           </div> : ""
         }
         
