@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/MoviesForYou/static/css/main.cc6b83b9.chunk.css",
-    "main.js": "/MoviesForYou/static/js/main.4202c258.chunk.js",
-    "main.js.map": "/MoviesForYou/static/js/main.4202c258.chunk.js.map",
+    "main.js": "/MoviesForYou/static/js/main.4f31153b.chunk.js",
+    "main.js.map": "/MoviesForYou/static/js/main.4f31153b.chunk.js.map",
     "runtime-main.js": "/MoviesForYou/static/js/runtime-main.2df15c37.js",
     "runtime-main.js.map": "/MoviesForYou/static/js/runtime-main.2df15c37.js.map",
     "static/css/2.370905a2.chunk.css": "/MoviesForYou/static/css/2.370905a2.chunk.css",
-    "static/js/2.b1d4800b.chunk.js": "/MoviesForYou/static/js/2.b1d4800b.chunk.js",
-    "static/js/2.b1d4800b.chunk.js.map": "/MoviesForYou/static/js/2.b1d4800b.chunk.js.map",
+    "static/js/2.68edec1c.chunk.js": "/MoviesForYou/static/js/2.68edec1c.chunk.js",
+    "static/js/2.68edec1c.chunk.js.map": "/MoviesForYou/static/js/2.68edec1c.chunk.js.map",
     "static/js/3.cbbae3f9.chunk.js": "/MoviesForYou/static/js/3.cbbae3f9.chunk.js",
     "static/js/3.cbbae3f9.chunk.js.map": "/MoviesForYou/static/js/3.cbbae3f9.chunk.js.map",
     "index.html": "/MoviesForYou/index.html",
     "static/css/2.370905a2.chunk.css.map": "/MoviesForYou/static/css/2.370905a2.chunk.css.map",
     "static/css/main.cc6b83b9.chunk.css.map": "/MoviesForYou/static/css/main.cc6b83b9.chunk.css.map",
-    "static/js/2.b1d4800b.chunk.js.LICENSE.txt": "/MoviesForYou/static/js/2.b1d4800b.chunk.js.LICENSE.txt",
+    "static/js/2.68edec1c.chunk.js.LICENSE.txt": "/MoviesForYou/static/js/2.68edec1c.chunk.js.LICENSE.txt",
     "static/media/logo.ea13b586.svg": "/MoviesForYou/static/media/logo.ea13b586.svg",
     "static/media/index.css": "/MoviesForYou/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.2df15c37.js",
     "static/css/2.370905a2.chunk.css",
-    "static/js/2.b1d4800b.chunk.js",
+    "static/js/2.68edec1c.chunk.js",
     "static/css/main.cc6b83b9.chunk.css",
-    "static/js/main.4202c258.chunk.js"
+    "static/js/main.4f31153b.chunk.js"
   ]
 }
