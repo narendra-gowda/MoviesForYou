@@ -56,7 +56,7 @@ class Header extends Component {
       phoneHelperDisplay: "dispNone",
       registrationSuccess : true,
       success: "dispNone",
-      loggedIn: sessionStorage.getItem('access-token') ? true : false 
+      loggedIn: sessionStorage.getItem('access-token') ? false : true 
     };
   }
   modalOpenHandler = () => {

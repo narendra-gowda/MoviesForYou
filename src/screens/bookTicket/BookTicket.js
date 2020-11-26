@@ -62,7 +62,7 @@ class BookTicket extends Component{
     s.showTime === '' ? this.setState({timeRequired: 'dispBlock'}) : this.setState({timeRequired: 'dispNone'});
     s.tickets <= 0 ? this.setState({ticketRequired: 'dispBlock'}) : this.setState({ticketRequired: 'dispNone'});
 
-    if(s.location != '' && s.language != '' &&  s.showDate != '' && s.showTime != '' && s.tickets > 0){
+    if(s.location !== '' && s.language !== '' &&  s.showDate !== '' && s.showTime !== '' && s.tickets > 0){
     // ReactDOM.render(<Confirmation bookTicketProps={this.state}/>, document.getElementById('root'));  --Manual Routing--
      this.props.history.push({
        pathname : '/confirm/'+ this.props.match.params.id, 
